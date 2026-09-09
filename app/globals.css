@@ -662,3 +662,84 @@ legend {
   }
 }
 
+.account-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.enrollment {
+  max-width: 1160px;
+  margin: auto;
+  padding: 30px;
+}
+.enrollment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid #253247;
+  padding-bottom: 28px;
+}
+.enrollment-header > a:last-child {
+  color: #91a5be;
+  font-size: 14px;
+}
+.enrollment-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 75px;
+  align-items: start;
+  padding: 65px 0;
+}
+.enrollment-card h2 {
+  margin: 18px 0;
+}
+.enrollment-card .button {
+  margin: 10px 0;
+  display: flex;
+}
+.enrollment-card > a.muted {
+  display: block;
+  margin-top: 25px;
+}
+.enrollment-step {
+  display: flex;
+  gap: 22px;
+  margin-top: 28px;
+}
+.enrollment-step > span {
+  color: #c5ac7f;
+  font: 24px Georgia;
+}
+.enrollment-step h3 {
+  margin-bottom: 5px;
+}
+.enrollment-step p {
+  font-size: 14px;
+  color: #8fa3bd;
+}
+.enrollment .form {
+  margin-top: 20px;
+}
+@media (max-width: 750px) {
+  .enrollment {
+    padding: 20px;
+  }
+  .enrollment-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 35px 0;
+  }
+  .enrollment-step {
+    display: none;
+  }
+  .account-actions {
+    gap: 10px;
+  }
+  .main header {
+    height: auto;
+    min-height: 75px;
+    padding: 15px 0;
+  }
+}

@@ -10,7 +10,6 @@ import {
   LayoutDashboard,
   ArrowUpRight,
   Shield,
-  Plus,
   RotateCcw,
   Check,
   Medal,
@@ -49,7 +48,6 @@ const statFields = [
   ['cs', 'Tropas'],
   ['objectives', 'Dano a objetivos'],
 ] as const;
-const blank = { name: '', riotId: '', tagline: '', icon: '', active: true };
 const date = (s: string) =>
   new Date(s).toLocaleString('pt-BR', {
     dateStyle: 'short',
@@ -242,13 +240,11 @@ export default function Arena() {
   };
   const openResult = () => {
     setEntries(
-      current.teams
-        .flat()
-        .map((id: string) => ({
-          playerId: id,
-          champion: '',
-          ...Object.fromEntries(statFields.map(([k]) => [k, 0])),
-        })),
+      current.teams.flat().map((id: string) => ({
+        playerId: id,
+        champion: '',
+        ...Object.fromEntries(statFields.map(([k]) => [k, 0])),
+      })),
     );
     setResultOpen(true);
   };
@@ -289,7 +285,7 @@ export default function Arena() {
         </tbody>
       </Table>
     ) : (
-      <Empty text="Cadastre os jogadores para começar o campeonato." />
+      <Empty text="Os jogadores aparecerão aqui quando concluírem o cadastro." />
     );
   }
   function Teams({ match }: { match: any }) {
@@ -377,20 +373,17 @@ export default function Arena() {
         <main className="main">
           <header>
             <span>ARENA / {view.toUpperCase()}</span>
-            <a
-              href={
-                data?.signedIn
-                  ? '/signout-with-chatgpt?return_to=/'
-                  : '/signin-with-chatgpt?return_to=/'
-              }
-            >
-              {admin
-                ? 'Administrador · Sair'
-                : data?.signedIn
-                  ? 'Visitante · Sair'
-                  : 'Entrar como administrador'}{' '}
-              <ArrowUpRight size={16} />
-            </a>
+            <div className="account-actions">
+              <a href="/cadastro">
+                {data?.myPlayerId ? 'Meu cadastro' : 'Entrar / Cadastrar-se'}{' '}
+                <ArrowUpRight size={16} />
+              </a>
+              {data?.signedIn && (
+                <a href="/signout-with-chatgpt?return_to=/" target="_top">
+                  {admin ? 'Administrador · Sair' : 'Sair'}
+                </a>
+              )}
+            </div>
           </header>
           <div className="page-heading">
             <div>
@@ -773,14 +766,9 @@ export default function Arena() {
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                     />
-                    {admin && (
-                      <button
-                        className="gold"
-                        onClick={() => setEdit({ ...blank })}
-                      >
-                        <Plus size={18} /> Cadastrar jogador
-                      </button>
-                    )}
+                    <a className="gold button" href="/cadastro">
+                      {data?.myPlayerId ? 'Meu cadastro' : 'Quero participar'}
+                    </a>
                   </div>
                   <div className="grid">
                     {ranked
@@ -839,8 +827,8 @@ export default function Arena() {
                     <Empty
                       text={
                         admin
-                          ? 'Use “Cadastrar jogador” para reunir sua comunidade.'
-                          : 'O administrador ainda não cadastrou os jogadores.'
+                          ? 'Compartilhe o link da arena. Seus amigos fazem o próprio cadastro.'
+                          : 'Seja o primeiro a participar: conclua seu cadastro.'
                       }
                     />
                   )}
@@ -958,7 +946,7 @@ export default function Arena() {
                           ))}
                       </div>
                       {!players.length && (
-                        <Empty text="Cadastre os jogadores antes do primeiro sorteio." />
+                        <Empty text="Aguarde os jogadores concluírem o cadastro antes do primeiro sorteio." />
                       )}
                       <div className="toolbar detail">
                         <button

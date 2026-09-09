@@ -71,6 +71,14 @@ export async function GET() {
       adjustments: a.results,
       admin: who.admin,
       signedIn: !!who.user,
+      myPlayerId: who.user
+        ? ((
+            await db
+              .prepare('SELECT id FROM players WHERE user_id=?')
+              .bind(who.user.userId)
+              .first<{ id: string }>()
+          )?.id ?? null)
+        : null,
       audit: logs,
     });
   } catch (e) {
@@ -342,4 +350,3 @@ export async function POST(request: Request) {
     );
   }
 }
-

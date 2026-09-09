@@ -15,11 +15,15 @@ export const players = sqliteTable(
     riotId: text('riot_id').notNull(),
     tagline: text('tagline').notNull(),
     puuid: text('puuid'),
+    userId: text('user_id'),
     icon: text('icon').notNull().default(''),
     active: integer('active').notNull().default(1),
     createdAt: text('created_at').notNull(),
   },
-  (t) => [uniqueIndex('players_riot_account').on(t.riotId, t.tagline)],
+  (t) => [
+    uniqueIndex('players_riot_account').on(t.riotId, t.tagline),
+    uniqueIndex('players_user_account').on(t.userId),
+  ],
 );
 export const championships = sqliteTable('championships', {
   id: text('id').primaryKey(),

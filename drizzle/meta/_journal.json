@@ -8,6 +8,13 @@
       "when": 1788994246855,
       "tag": "0000_jazzy_jane_foster",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788996194629,
+      "tag": "0001_concerned_blue_marvel",
+      "breakpoints": true
     }
   ]
 }

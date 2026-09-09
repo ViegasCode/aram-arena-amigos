@@ -45,3 +45,13 @@ A aplicação de leitura pode ser publicada publicamente; a política externa do
 ## Revisão de dependências
 
 Após as atualizações, `npm audit --omit=dev` retornou zero vulnerabilidades conhecidas. A auditoria completa ainda reporta oito avisos em ferramentas de desenvolvimento; não trate isso como certificação de segurança. O servidor de desenvolvimento deve permanecer restrito ao ambiente local. Os pacotes foram fixados no arquivo de lock e as versões de React, Vinext, Vite e ferramentas Cloudflare foram atualizadas para correções disponíveis.
+
+## Cadastro pelos próprios jogadores
+
+O link da arena fica público para consulta. Em `/cadastro`, cada amigo entra com sua conta ChatGPT e informa apelido, Riot ID, tagline e ícone. Ao salvar, ele aparece imediatamente em Jogadores e no ranking, pronto para a seleção de participantes. A lista aberta pelo administrador também se atualiza automaticamente a cada 20 segundos.
+
+O identificador de login fica associado no banco com unicidade por conta e não é exposto nas consultas públicas. Cada pessoa só edita o próprio cadastro; a ativação, as regras e os pontos continuam sob controle administrativo. Entrar não concede privilégios de administrador. Não há senha própria da arena: a autenticação é feita pelo ChatGPT.
+
+Cadastros antigos criados manualmente não são assumidos automaticamente por alguém que digite o mesmo Riot ID. A associação oficial da conta Riot continua pendente. A migração `0001_concerned_blue_marvel.sql` preserva os registros antigos e adiciona o vínculo de identidade, sem modificar a migração já publicada.
+
+Teste adicional: `node tests/registration.mjs`, com servidor local e ADMIN_EMAILS diferente de `seedy@sites.test` em `.dev.vars`. Verifica cadastro automático, concorrência, limites de permissão, privacidade e impedimento de reativação pelo próprio jogador. Usa somente o banco de desenvolvimento e mantém um jogador QA.
