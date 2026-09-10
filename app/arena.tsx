@@ -25,10 +25,12 @@ import {
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Table } from '@/components/ui/table';
+import Mayhem from './mayhem';
 import { DEFAULT_RULES } from '@/lib/scoring';
 const navigation = [
   ['Dashboard', LayoutDashboard],
   ['Ranking', Trophy],
+  ['Mayhem', Swords],
   ['Partida', Swords],
   ['Histórico', History],
   ['Jogadores', Users],
@@ -728,6 +730,7 @@ export default function Arena() {
                   </div>
                 </>
               )}
+              {view === 'Mayhem' && <Mayhem admin={admin} />}
               {view === 'Ranking' && (
                 <>
                   {ranked.length > 0 && (

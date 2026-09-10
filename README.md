@@ -55,3 +55,12 @@ O identificador de login fica associado no banco com unicidade por conta e não 
 Cadastros antigos criados manualmente não são assumidos automaticamente por alguém que digite o mesmo Riot ID. A associação oficial da conta Riot continua pendente. A migração `0001_concerned_blue_marvel.sql` preserva os registros antigos e adiciona o vínculo de identidade, sem modificar a migração já publicada.
 
 Teste adicional: `node tests/registration.mjs`, com servidor local e ADMIN_EMAILS diferente de `seedy@sites.test` em `.dev.vars`. Verifica cadastro automático, concorrência, limites de permissão, privacidade e impedimento de reativação pelo próprio jogador. Usa somente o banco de desenvolvimento e mantém um jogador QA.
+
+## Liga Mayhem
+- Aba Mayhem com classificação comunitária (+3 vitória, 0 derrota), histórico e anulação auditada; tabelas mayhem_matches/mayhem_results independentes do campeonato.
+- Período inicial desde 09/09/2026 21:30 (São Paulo). Jogador deve ter cadastro anterior à partida; sem partidas não recebe posição.
+- Administrador pode consultar Match ID BR1 no MATCH-V5 com RIOT_API_KEY no servidor ou lançar resultado conferido. Não há sincronização automática em segundo plano.
+- Importação aceita apenas queueId 2400 / KIWI, partida finalizada de pelo menos 5 minutos, sem remake; Riot IDs precisam coincidir. Resposta 404 não gera resultado presumido. Importação depende da disponibilidade da Riot para Mayhem.
+- Manual é explicitamente identificado e exige confirmação; a conferência da modalidade/duração depende do administrador.
+- Chave nunca enviada ao navegador; acesso de escrita exige administrador e mesma origem. Não representa MMR ou elo oficial.
+- Verificação: node --experimental-strip-types tests/mayhem.mjs com servidor local e administrador seedy. Cobre autorização, CSRF, duplicidade, anulação, validação Riot e preservação de todos os dados do campeonato.

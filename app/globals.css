@@ -743,3 +743,23 @@ legend {
     padding: 15px 0;
   }
 }
+.mayhem { display: grid; gap: 24px; }
+.mayhem-hero { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; padding: 32px; background: linear-gradient(120deg,#101c32,#162338); }
+.mayhem-hero h2 { font-size: clamp(25px,3vw,38px); margin: 12px 0; }
+.mayhem-hero p { max-width: 560px; color: #a2b3cc; line-height: 1.7; }
+.mayhem-hero .badge { display: inline-flex; gap: 8px; align-items: center; margin-top: 16px; }
+.mayhem-leader { display: grid; align-content: center; gap: 12px; border-left: 1px solid #34425b; padding-left: 30px; color: #d8bd89; }
+.mayhem-leader strong { font-size: 24px; }
+.mayhem-leader span { color: #a2b3cc; font-size: 13px; }
+.mayhem-riot { display: block; color: #8fa3bd; margin-top: 5px; }
+.mayhem-rules p { margin-top: 12px; color: #a2b3cc; line-height: 1.7; }
+.mayhem-match { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; padding:22px 0; border-top:1px solid #26344d; }
+.mayhem-match p { margin:8px 0; }
+.mayhem-outcomes { display:flex; flex-wrap:wrap; gap:12px; font-size:13px; }
+.mayhem-dialog { max-height:90vh; overflow-y:auto; }
+.mayhem-options { display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+.mayhem-options label { display:flex; gap:7px; align-items:center; }
+.mayhem-choice { border:1px solid #34425b; padding:12px; border-radius:8px; }
+.mayhem-choice legend { padding:0 5px; }
+.mayhem-error { color:#ffb4b4; padding:12px; background:#44242c; border-radius:8px; }
+@media(max-width:750px) { .mayhem-hero {grid-template-columns:1fr;padding:22px;} .mayhem-leader {border-left:0;border-top:1px solid #34425b;padding:20px 0 0;} .mayhem-match{flex-direction:column;} }

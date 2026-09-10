@@ -95,3 +95,16 @@ export const audit = sqliteTable('audit_logs', {
   details: text('details').notNull(),
   createdAt: text('created_at').notNull(),
 });
+export const mayhemMatches = sqliteTable('mayhem_matches', {
+  id: text('id').primaryKey(),
+  playedAt: text('played_at').notNull(),
+  source: text('source').notNull(),
+  createdAt: text('created_at').notNull(),
+  actor: text('actor').notNull(),
+  voidReason: text('void_reason'),
+});
+export const mayhemResults = sqliteTable('mayhem_results', {
+  matchId: text('match_id').notNull().references(() => mayhemMatches.id),
+  playerId: text('player_id').notNull().references(() => players.id),
+  win: integer('win').notNull(),
+}, (t) => [uniqueIndex('mayhem_result_once').on(t.matchId, t.playerId), index('mayhem_results_player').on(t.playerId)]);
