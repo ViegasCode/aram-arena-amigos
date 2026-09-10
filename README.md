@@ -70,3 +70,10 @@ Teste adicional: `node tests/registration.mjs`, com servidor local e ADMIN_EMAIL
 - Ícone oficial Data Dragon, nível, Solo/Duo e Flex com divisão, PdL, vitórias e derrotas. Fila sem entrada aparece sem classificação; falha na API não é interpretada como jogador sem elo.
 - Dados persistidos em riot_profiles, atualização manual com cache de 5 minutos. Mudança de Riot ID invalida a exibição dos dados antigos. PUUID não é retornado ao navegador.
 - Testes: node --experimental-strip-types tests/riot-profile.mjs; cobre dados incompletos, ranks vazios, identidade, CSRF, persistência, falha da consulta e mudança de conta.
+
+## Busca das partidas Mayhem
+- Administrador usa Buscar partidas dos jogadores na aba Mayhem. Consulta até 100 partidas recentes de queue=2400 por jogador, desde o início da liga ou cadastro (o que for posterior).
+- Reúne IDs únicos e importa as partidas elegíveis usando a mesma validação do importador individual; já registradas, inclusive anuladas, não entram novamente.
+- PUUID é usado para reconhecer participantes com perfil consultado mesmo após mudança do nome na Riot. Participantes cadastrados após a partida não recebem pontos retroativos.
+- Exibe progresso e resumo; parar por limite de API preserva os resultados já gravados. Não é execução automática em segundo plano; manter a aba aberta até concluir.
+- Validação: tests/mayhem-history.mjs e tests/mayhem.mjs (autorização, CSRF, identidade estável, duplicidade, anulação e isolamento do campeonato).

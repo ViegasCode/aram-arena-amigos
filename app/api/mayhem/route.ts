@@ -34,7 +34,7 @@ export async function POST(request:Request) {
   }
   if(!['manual','riot'].includes(b.action))throw new Error('Ação inválida.');
   if(await db.prepare('SELECT id FROM mayhem_matches WHERE id=?').bind(b.matchId).first())return json({error:'Esta partida já foi registrada no Mayhem.'},409);
-  const players=(await db.prepare('SELECT id,riot_id,tagline,created_at FROM players').all()).results as any[];
+  const players=(await db.prepare('SELECT id,riot_id,tagline,puuid,created_at FROM players').all()).results as any[];
   let entries:{playerId:string;win:number}[],playedAt:string;
   if(b.action==='riot') {
    const key=(env as unknown as {RIOT_API_KEY?:string}).RIOT_API_KEY;
@@ -46,7 +46,7 @@ export async function POST(request:Request) {
    }
    const body=await response.json() as any;
    if(body.metadata?.matchId!==b.matchId)throw new Error('A resposta da Riot não corresponde à partida solicitada.');
-   ({entries,playedAt}=riotMayhem(body,players));
+   ({entries,playedAt}=riotMayhem(body,players.filter(p=>Date.parse(p.created_at)<=body.info?.gameStartTimestamp)));
   } else {
    if(b.confirmed!==true)throw new Error('Confirme que conferiu o resultado de ARAM Mayhem.');
    entries=validateEntries(b.entries);

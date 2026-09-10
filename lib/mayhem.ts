@@ -24,8 +24,9 @@ export function riotMayhem(body: any, players: any[]) {
     throw new Error('Partida incompleta, remake ou com menos de 5 minutos.');
   const entries = players.flatMap(p => {
     const participant = info.participants.find((r:any) =>
+      (p.puuid ? r.puuid === p.puuid :
       typeof r.riotIdGameName === 'string' && typeof r.riotIdTagline === 'string' &&
-      r.riotIdGameName.toLowerCase() === p.riot_id.toLowerCase() && r.riotIdTagline.toLowerCase() === p.tagline.toLowerCase());
+      r.riotIdGameName.toLowerCase() === p.riot_id.toLowerCase() && r.riotIdTagline.toLowerCase() === p.tagline.toLowerCase()));
     return participant && typeof participant.win === 'boolean' ? [{playerId:p.id, win:participant.win ? 1 : 0}] : [];
   });
   return {playedAt:new Date(info.gameStartTimestamp).toISOString(),entries:validateEntries(entries)};

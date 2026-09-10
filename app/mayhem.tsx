@@ -1,5 +1,6 @@
 'use client';
 import {useState,useEffect,useCallback} from 'react';
+import MayhemSync from './mayhem-sync';
 import {Trophy, Swords, ShieldCheck} from 'lucide-react';
 import {Table} from '@/components/ui/table';
 import {Dialog,DialogContent,DialogHeader,DialogTitle,DialogDescription} from '@/components/ui/dialog';
@@ -25,6 +26,7 @@ export default function Mayhem({admin}:{admin:boolean}) {
    <div className="mayhem-leader"><Trophy size={30}/><small>{leader?'LÍDER DA LIGA':'TEMPORADA ABERTA'}</small><strong>{leader?.name||'Quem chega primeiro?'}</strong><span>{leader?`${leader.points} pontos · ${leader.wins} vitórias`:'A primeira partida define o início da disputa.'}</span></div>
   </section>
   <div className="toolbar"><p className="muted">{players.length} jogadores · {matches.filter((m:any)=>!m.void_reason).length} partidas registradas</p>{admin&&<button className="gold" onClick={()=>{setOpen(true);setError('');setMatchId('');setChoices({});setConfirmed(false);setPlayedAt(localNow())}}>Registrar partida Mayhem</button>}</div>
+  {admin && <MayhemSync players={players} knownIds={matches.map((m:any)=>m.id)} onUpdated={reload}/> }
   {error&&!open&&!voidId&&<p role="alert" className="mayhem-error">{error}</p>}{notice&&<p role="status" className="notice">{notice}</p>}
   {!data?<section className="panel detail">Carregando classificação… {error&&<button onClick={()=>reload().catch(e=>setError(e.message))}>Tentar novamente</button>}</section>:<>
   <section className="panel"><Table><thead><tr><th>Posição</th><th>Jogador</th><th>Pontos Mayhem</th><th>Vitórias</th><th>Derrotas</th><th>Partidas</th><th>Taxa de vitórias</th></tr></thead><tbody>{players.map((p:any,i:number)=><tr key={p.id}><td>{p.games?`${i+1}º`:'—'}</td><td><strong>{p.name}</strong><small className="mayhem-riot">{p.riot_id}#{p.tagline}{!p.active?' · Inativo':''}</small></td><td className="score">{p.points}</td><td>{p.wins}</td><td>{p.losses}</td><td>{p.games||'Ainda não jogou'}</td><td>{p.games?`${(p.rate*100).toFixed(1)}%`:'—'}</td></tr>)}</tbody></Table>{!players.length&&<p className="empty">Os jogadores aparecerão aqui depois de se cadastrar.</p>}</section>
