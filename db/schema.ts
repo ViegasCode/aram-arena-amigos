@@ -102,6 +102,7 @@ export const mayhemMatches = sqliteTable('mayhem_matches', {
   createdAt: text('created_at').notNull(),
   actor: text('actor').notNull(),
   voidReason: text('void_reason'),
+  details: text('details'),
 });
 export const mayhemResults = sqliteTable('mayhem_results', {
   matchId: text('match_id').notNull().references(() => mayhemMatches.id),

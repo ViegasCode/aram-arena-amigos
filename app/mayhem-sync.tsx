@@ -2,7 +2,7 @@
 import {useEffect,useState} from 'react';
 export default function MayhemSync({players,knownIds,onUpdated}:{players:any[];knownIds:string[];onUpdated:()=>Promise<unknown>}){
  const [busy,setBusy]=useState(false),[progress,setProgress]=useState(''),[summary,setSummary]=useState(''),[issues,setIssues]=useState<string[]>([]);
- useEffect(()=>{const raw=new URLSearchParams(location.hash.slice(1)).get('mayhem-sync');if(!raw)return;history.replaceState(null,'',location.pathname+location.search);try{const bytes=Uint8Array.from(atob(raw.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));const data=JSON.parse(new TextDecoder().decode(bytes));void importMatches(data.matches);}catch{setIssues(['O conector devolveu dados inválidos. Tente novamente.']);}},[]);
+ useEffect(()=>{const params=new URLSearchParams(location.hash.slice(1)),raw=params.get('mayhem-sync-z')||params.get('mayhem-sync');if(!raw)return;history.replaceState(null,'',location.pathname+location.search);void (async()=>{try{const bytes=Uint8Array.from(atob(raw.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));let decoded=bytes;if(params.has('mayhem-sync-z')){const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));decoded=new Uint8Array(await new Response(stream).arrayBuffer())}const data=JSON.parse(new TextDecoder().decode(decoded));await importMatches(data.matches);}catch{setIssues(['O conector devolveu dados inválidos. Baixe a versão mais recente e tente novamente.']);}})();},[]);
  async function importMatches(input:unknown){
   setBusy(true);setSummary('');setIssues([]);
   const known=new Set(knownIds),errors:string[]=[];let imported=0,duplicates=0,unavailable=0;
