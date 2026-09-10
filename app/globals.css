@@ -744,27 +744,16 @@ legend {
   }
 }
 .mayhem { display: grid; gap: 24px; }
-.mayhem-hero { position:relative;overflow:hidden;display:grid;grid-template-columns:1.45fr 1fr;gap:34px;padding:44px;background:radial-gradient(circle at 82% 20%,#7c3aed24,transparent 34%),radial-gradient(circle at 8% 100%,#06b6d422,transparent 38%),linear-gradient(125deg,#111a31,#17132d 60%,#25133b);border:1px solid #5a3c7a;box-shadow:0 24px 70px #05091480; }
-.mayhem-hero:after { content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 45%,#ffffff08 46%,transparent 47%);pointer-events:none; }
+.mayhem-hero { display: grid; grid-template-columns: 1.6fr 1fr; gap: 28px; padding: 32px; background: linear-gradient(120deg,#101c32,#162338); }
 .mayhem-hero h2 { font-size: clamp(25px,3vw,38px); margin: 12px 0; }
-.mayhem-hero h2 em { color:#d6a8ff;font-style:normal;text-shadow:0 0 26px #9c4dff66; }
-.mayhem-hero-copy { min-width:0; }
 .mayhem-hero p { max-width: 560px; color: #a2b3cc; line-height: 1.7; }
 .mayhem-hero .badge { display: inline-flex; gap: 8px; align-items: center; margin-top: 16px; }
-.mayhem-season {display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #a66cff66;border-radius:999px;background:#6d28d922;color:#d8b4fe;font-size:11px;font-weight:800;letter-spacing:.12em;}
-.mayhem-hero-actions {display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:16px;color:#b4c2d8;font-size:13px;}.mayhem-hero-actions span{display:inline-flex;align-items:center;gap:7px}.mayhem-hero-actions .badge{margin:0}
-.mayhem-leader { position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px;padding:24px;color:#d8bd89;background:linear-gradient(180deg,#ffffff0b,#ffffff03);border:1px solid #9266bd55;border-radius:18px;box-shadow:inset 0 1px #ffffff16; }
-.mayhem-leader>.tier-icon {width:82px;height:118px;flex-basis:118px;margin:-5px 0 -8px}.mayhem-leader strong { font-size: 25px;color:#fff; }
-.leader-trophy{display:grid;place-items:center;width:76px;height:76px;margin:9px 0;border-radius:50%;color:#ebcb77;background:#6f501f33;box-shadow:0 0 30px #c58c3340}
+.mayhem-leader { display: grid; align-content: center; gap: 12px; border-left: 1px solid #34425b; padding-left: 30px; color: #d8bd89; }
+.mayhem-leader strong { font-size: 24px; }
 .mayhem-leader span { color: #a2b3cc; font-size: 13px; }
-.leader-crown{display:flex;align-items:center;gap:7px;color:#e8c77f;font-size:10px;font-weight:900;letter-spacing:.13em}.leader-tier{color:#d9adff!important;font-weight:700}.leader-score{display:grid;grid-template-columns:auto auto 1px auto auto;align-items:center;gap:7px;margin:8px 0}.leader-score b{font-size:18px;color:#fff}.leader-score small{font-size:9px;color:#7f91ac}.leader-score i{height:22px;background:#4a4260;margin:0 5px}.tier-progress{width:100%;display:grid;gap:7px}.tier-progress div{display:flex;justify-content:space-between;font-size:10px;color:#8fa3bd}.tier-progress progress{width:100%;height:6px;accent-color:#a855f7;border:0}
-.mayhem-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.mayhem-stats article{display:flex;align-items:center;gap:13px;padding:18px 20px;border:1px solid #293851;border-radius:12px;background:linear-gradient(135deg,#142036,#101827)}.mayhem-stats article>span{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;color:#c490f5;background:#7c3aed20}.mayhem-stats article div{display:grid}.mayhem-stats strong{font-size:23px;color:#eef4ff}.mayhem-stats small{font-size:9px;letter-spacing:.11em;color:#7f91aa}.mayhem-toolbar{margin:6px 0 -10px}.mayhem-toolbar h2{margin-top:4px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px}.section-title h2{display:flex;align-items:center;gap:9px;margin-top:5px}.live-dot{font-size:9px;font-weight:900;letter-spacing:.14em;color:#73efb0;padding:7px 10px;border:1px solid #36b97855;border-radius:999px;background:#16a26916}.live-dot:before{content:'';display:inline-block;width:6px;height:6px;margin-right:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80}
-.mayhem-podium{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.mayhem-podium article{display:flex;align-items:center;gap:14px;min-height:126px;padding:18px 20px;border:1px solid #33435d;border-radius:14px;background:linear-gradient(145deg,#162239,#101928);position:relative;overflow:hidden}.mayhem-podium article:after{content:'';position:absolute;width:100px;height:100px;right:-25px;top:-35px;border-radius:50%;background:#8b5cf622;filter:blur(4px)}.mayhem-podium .podium-1{border-color:#b7954f;background:linear-gradient(145deg,#2e2718,#171b2b)}.podium-place{position:absolute;top:10px;right:12px;display:flex;align-items:center;gap:4px;color:#d9bd7c;font-size:11px;font-weight:800}.mayhem-podium .tier-icon{width:54px;height:78px;flex-basis:78px}.mayhem-podium article>div{display:grid;gap:5px}.mayhem-podium strong{font-size:17px;color:#f4f7ff}.mayhem-podium small{font-size:11px;color:#9d8bb6}.mayhem-podium b{color:#ddbf7e}.mayhem-ranking{overflow-x:auto}.mayhem-ranking tbody tr{transition:.2s background}.mayhem-ranking tbody tr:hover{background:#202e443d}.rank-number{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#202e44;color:#a9b8ce;font-weight:800}.rank-1 .rank-number{background:#8f6b2133;color:#efcd78}.rank-2 .rank-number{background:#94a3b833;color:#d6deec}.rank-3 .rank-number{background:#a65f3933;color:#e6a47e}.win-stat{color:#67e8a5;font-weight:800}
-.mayhem-podium .podium-medal{display:grid;place-items:center;width:54px;height:54px;flex:0 0 54px;border-radius:50%;color:#d2b36b;background:#8d6b2830;border:1px solid #b38b3f55}
 .mayhem-riot { display: block; color: #8fa3bd; margin-top: 5px; }
 .mayhem-rules p { margin-top: 12px; color: #a2b3cc; line-height: 1.7; }
-.mayhem-match { display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:18px;margin-top:10px;border:1px solid #26344d;border-radius:12px;background:#101a2a; }
-.match-icon{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:#8b5cf61c;color:#bd8cff}.match-body{flex:1}.mayhem-match.voided{opacity:.55}.mayhem-match button{font-size:11px}.outcome-win,.outcome-loss{padding:7px 9px;border-radius:7px}.outcome-win{color:#7ff0b2;background:#174d382e;border:1px solid #3b9e6b44}.outcome-loss{color:#a6b2c5;background:#273246;border:1px solid #3a465b}.outcome-win b,.outcome-loss b{margin-left:5px}
+.mayhem-match { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; padding:22px 0; border-top:1px solid #26344d; }
 .mayhem-match p { margin:8px 0; }
 .mayhem-outcomes { display:flex; flex-wrap:wrap; gap:12px; font-size:13px; }
 .mayhem-dialog { max-height:90vh; overflow-y:auto; }
@@ -784,8 +773,7 @@ legend {
 .tier-card .tier-icon { width:64px; height:92px; flex-basis:92px; }
 .tier-card strong { color:#dbc18e; font-size:13px; }
 .tier-card span { color:#899bb5; font-size:11px; }
-@media(max-width:900px){.mayhem-stats{grid-template-columns:repeat(2,1fr)}.mayhem-podium{grid-template-columns:1fr}.mayhem-hero{grid-template-columns:1fr}.mayhem-leader{max-width:460px;width:100%;margin:auto}}
-@media(max-width:750px) { .mayhem-hero {grid-template-columns:1fr;padding:24px;} .mayhem-leader {padding:20px;} .mayhem-match{flex-wrap:wrap;} .mayhem-stats{grid-template-columns:1fr 1fr}.mayhem-stats article{padding:14px}.mayhem-stats small{letter-spacing:.04em}.section-title{align-items:flex-start}.tier-road{margin-left:-8px;margin-right:-8px}.mayhem-ranking{padding:18px 12px}.mayhem-ranking table{min-width:850px} }
+@media(max-width:750px) { .mayhem-hero {grid-template-columns:1fr;padding:22px;} .mayhem-leader {border-left:0;border-top:1px solid #34425b;padding:20px 0 0;} .mayhem-match{flex-direction:column;} }
 .avatar { position:relative; overflow:hidden; }
 .avatar img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .riot-sync { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-bottom:22px; }
