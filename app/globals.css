@@ -762,7 +762,7 @@ legend {
 .mayhem-choice { border:1px solid #34425b; padding:12px; border-radius:8px; }
 .mayhem-choice legend { padding:0 5px; }
 .mayhem-error { color:#ffb4b4; padding:12px; background:#44242c; border-radius:8px; }
-.tier-icon { width:52px; height:76px; flex:0 0 52px; display:inline-block; background-image:url('/images/mayhem-tiers.png'); background-repeat:no-repeat; background-size:700% 100%; filter:drop-shadow(0 7px 10px #0009); }
+.tier-icon { width:52px; height:76px; flex:0 0 52px; display:inline-block; object-fit:contain; filter:drop-shadow(0 7px 10px #0009); }
 .tier-label { display:flex; align-items:center; gap:10px; min-width:190px; }
 .tier-label>span { display:grid; gap:4px; }
 .tier-label small { color:#8295af; font-size:11px; max-width:150px; }

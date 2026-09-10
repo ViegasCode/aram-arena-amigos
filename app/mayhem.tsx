@@ -12,7 +12,7 @@ const date=(v:string)=>new Date(v).toLocaleString('pt-BR',{dateStyle:'short',tim
 const localNow=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)};
 const TIERS=[{name:'Recruta do Caos',min:0},{name:'Brutamontes de Bronze',min:15},{name:'Vanguarda Prateada',min:30},{name:'Carrasco Dourado',min:60},{name:'Senhor de Platina',min:100},{name:'Soberano Diamante',min:160},{name:'Lenda do Caos',min:250}];
 const tierFor=(points:number)=>{let index=0;for(let i=0;i<TIERS.length;i++)if(points>=TIERS[i].min)index=i;const tier=TIERS[index],next=TIERS[index+1];return {...tier,index,next,remaining:next?next.min-points:0}};
-const TierIcon=({index,name}:{index:number;name:string})=><span className="tier-icon" style={{backgroundPosition:`${index*100/6}% center`}} role="img" aria-label={name}/>;
+const TierIcon=({index,name}:{index:number;name:string})=><img className="tier-icon" src={`/images/mayhem-tiers/tier-${index+1}.webp`} alt={`Emblema ${name}`} loading="lazy"/>;
 const RiotAvatar=({player}:{player:any})=>{const profile=player.riot_profile;return <div className="mayhem-avatar"><span>{player.icon||player.name?.slice(0,2).toUpperCase()||'?'}</span>{profile&&<img src={`https://ddragon.leagueoflegends.com/cdn/${profile.iconVersion}/img/profileicon/${profile.iconId}.png`} alt={`Ícone da conta de ${player.name}`} loading="lazy" onError={e=>{e.currentTarget.style.display='none'}}/>}<small>{profile?.level??'—'}</small></div>};
 function PlayerProfile({player,players,matches,results,onClose}:{player:any;players:any[];matches:any[];results:any[];onClose:()=>void}) {
  const [expanded,setExpanded]=useState('');
