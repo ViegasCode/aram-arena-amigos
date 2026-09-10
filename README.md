@@ -64,3 +64,9 @@ Teste adicional: `node tests/registration.mjs`, com servidor local e ADMIN_EMAIL
 - Manual é explicitamente identificado e exige confirmação; a conferência da modalidade/duração depende do administrador.
 - Chave nunca enviada ao navegador; acesso de escrita exige administrador e mesma origem. Não representa MMR ou elo oficial.
 - Verificação: node --experimental-strip-types tests/mayhem.mjs com servidor local e administrador seedy. Cobre autorização, CSRF, duplicidade, anulação, validação Riot e preservação de todos os dados do campeonato.
+
+## Perfis Riot
+- Consulta administrativa por jogador via ACCOUNT-V1, SUMMONER-V4 e LEAGUE-V4 no BR1; chave permanece em segredo no servidor.
+- Ícone oficial Data Dragon, nível, Solo/Duo e Flex com divisão, PdL, vitórias e derrotas. Fila sem entrada aparece sem classificação; falha na API não é interpretada como jogador sem elo.
+- Dados persistidos em riot_profiles, atualização manual com cache de 5 minutos. Mudança de Riot ID invalida a exibição dos dados antigos. PUUID não é retornado ao navegador.
+- Testes: node --experimental-strip-types tests/riot-profile.mjs; cobre dados incompletos, ranks vazios, identidade, CSRF, persistência, falha da consulta e mudança de conta.

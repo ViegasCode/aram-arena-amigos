@@ -33,7 +33,7 @@ export async function GET() {
       who = await identity();
     const [p, m, r, c, a] = await db.batch([
       db.prepare(
-        'SELECT id,name,riot_id,tagline,icon,active,created_at FROM players ORDER BY name',
+        'SELECT p.id,p.name,p.riot_id,p.tagline,p.icon,p.active,p.created_at,r.profile AS riot_profile,r.fetched_at AS riot_fetched_at FROM players p LEFT JOIN riot_profiles r ON r.player_id=p.id AND lower(r.riot_id)=lower(p.riot_id) AND lower(r.tagline)=lower(p.tagline) ORDER BY p.name',
       ),
       db.prepare('SELECT * FROM matches ORDER BY created_at DESC'),
       db.prepare('SELECT * FROM match_players'),
@@ -52,7 +52,7 @@ export async function GET() {
         ).results
       : [];
     return json({
-      players: p.results,
+      players: p.results.map((p: any) => ({...p, riot_profile: p.riot_profile ? {...JSON.parse(p.riot_profile), fetchedAt:p.riot_fetched_at} : null})),
       matches: m.results.map((x: any) => ({
         ...x,
         teams: JSON.parse(x.teams),

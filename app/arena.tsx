@@ -26,6 +26,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Table } from '@/components/ui/table';
 import Mayhem from './mayhem';
+import { RiotProfile, RiotSync } from './riot-profile';
 import { DEFAULT_RULES } from '@/lib/scoring';
 const navigation = [
   ['Dashboard', LayoutDashboard],
@@ -59,6 +60,7 @@ function Avatar({ p }: { p: any }) {
   return (
     <div className="avatar">
       {p?.icon || p?.name?.slice(0, 2).toUpperCase() || '?'}
+      {p?.riot_profile && <img key={p.riot_profile.iconId} src={`https://ddragon.leagueoflegends.com/cdn/${p.riot_profile.iconVersion}/img/profileicon/${p.riot_profile.iconId}.png`} alt={`Ícone Riot de ${p.name}`} loading="lazy" onError={e => {e.currentTarget.style.display='none'}} />}
     </div>
   );
 }
@@ -462,6 +464,8 @@ export default function Arena() {
               </button>
               <div className="panel detail">
                 <Person p={selectedProfile} />
+                <RiotProfile p={selectedProfile} />
+                {admin && <RiotSync players={[selectedProfile]} onUpdated={reload} />}
                 <div className="stats detail">
                   {[
                     [
@@ -761,6 +765,7 @@ export default function Arena() {
               )}
               {view === 'Jogadores' && (
                 <>
+                  {admin && <RiotSync players={data.players} onUpdated={reload} />}
                   <div className="toolbar">
                     <input
                       aria-label="Buscar jogador"
@@ -785,6 +790,7 @@ export default function Arena() {
                           <button onClick={() => openProfile(p.id)}>
                             <Person p={p} />
                           </button>
+                          <RiotProfile p={p} compact />
                           <div className="record">
                             <strong className="score">{p.points} pts</strong>
                             <span className="badge">
