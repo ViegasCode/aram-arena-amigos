@@ -7,11 +7,12 @@ export async function GET() {
  try {
   const db=database();
   const [p,m,r]=await db.batch([
-   db.prepare('SELECT id,name,riot_id,tagline,active FROM players ORDER BY name'),
+   db.prepare('SELECT p.id,p.name,p.riot_id,p.tagline,p.icon,p.active,r.profile AS riot_profile FROM players p LEFT JOIN riot_profiles r ON r.player_id=p.id AND lower(r.riot_id)=lower(p.riot_id) AND lower(r.tagline)=lower(p.tagline) ORDER BY p.name'),
    db.prepare('SELECT id,played_at,source,void_reason FROM mayhem_matches ORDER BY played_at DESC'),
    db.prepare('SELECT r.* FROM mayhem_results r JOIN mayhem_matches m ON m.id=r.match_id WHERE m.void_reason IS NULL'),
   ]);
-  return json({ranking:standings(p.results,r.results),matches:m.results,results:r.results,startAt:MAYHEM_START});
+  const players=p.results.map((player:any)=>({...player,riot_profile:player.riot_profile?JSON.parse(player.riot_profile):null}));
+  return json({ranking:standings(players,r.results),matches:m.results,results:r.results,startAt:MAYHEM_START});
  } catch {return json({error:'Não foi possível carregar o ranking Mayhem.'},503);}
 }
 export async function POST(request:Request) {
