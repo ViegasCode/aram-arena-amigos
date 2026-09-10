@@ -41,7 +41,8 @@ export async function POST(request:Request) {
   }
   if(!['manual','riot','client'].includes(b.action))throw new Error('Ação inválida.');
   if(b.action!=='client'&&!who.admin)return json({error:'Somente o administrador pode registrar resultados manualmente.'},403);
-  if(await db.prepare('SELECT id FROM mayhem_matches WHERE id=?').bind(b.matchId).first())return json({error:'Esta partida já foi registrada no Mayhem.'},409);
+  const existing=await db.prepare('SELECT id FROM mayhem_matches WHERE id=?').bind(b.matchId).first();
+  if(existing&&b.action!=='client')return json({error:'Esta partida já foi registrada no Mayhem.'},409);
   const players=(await db.prepare('SELECT id,riot_id,tagline,puuid,created_at FROM players').all()).results as any[];
   let entries:{playerId:string;win:number}[],playedAt:string,details:any=null;
   if(b.action==='riot') {
@@ -75,6 +76,13 @@ export async function POST(request:Request) {
   }
   if(playedAt<MAYHEM_START||playedAt>now)throw new Error('A partida deve estar dentro do período do ranking e não pode estar no futuro.');
   if(entries.some(r=>!players.some(p=>p.id===r.playerId&&p.created_at<=playedAt)))throw new Error('Todos os participantes precisam ter cadastro anterior à partida.');
+  if(existing&&b.action==='client'){
+   await db.batch([
+    db.prepare('UPDATE mayhem_matches SET details=? WHERE id=?').bind(JSON.stringify(details),b.matchId),
+    db.prepare('INSERT INTO audit_logs(id,actor,action,details,created_at) VALUES(?,?,?,?,?)').bind(crypto.randomUUID(),who.user!.userId,'mayhem.details.refresh',JSON.stringify({id:b.matchId}),now),
+   ]);
+   return json({ok:true,updated:true,participants:entries.length});
+  }
   await db.batch([
    db.prepare('INSERT INTO mayhem_matches(id,played_at,source,created_at,actor,details) VALUES(?,?,?,?,?,?)').bind(b.matchId,playedAt,b.action,now,who.user!.userId,details?JSON.stringify(details):null),
    ...entries.map(r=>db.prepare('INSERT INTO mayhem_results(match_id,player_id,win) VALUES(?,?,?)').bind(b.matchId,r.playerId,r.win)),
