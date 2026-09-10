@@ -19,7 +19,11 @@ function sanitize(game){
 }
 function headers(origin){return {'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, OPTIONS','Access-Control-Allow-Headers':'Content-Type','Access-Control-Allow-Private-Network':'true','Access-Control-Max-Age':'600','Cache-Control':'no-store','Content-Type':'application/json; charset=utf-8','Vary':'Origin'};}
 http.createServer(async(req,res)=>{
- const origin=req.headers.origin||'';if(!ALLOWED.has(origin)){res.writeHead(403,{'Content-Type':'application/json'});return res.end(JSON.stringify({error:'Origem não autorizada.'}));}
+ const origin=req.headers.origin||'';
+ if(req.method==='GET'&&req.url==='/sync'){
+  try{const history=await lcu('/lol-match-history/v1/products/lol/current-summoner/matches?begIndex=0&endIndex=39');const candidates=(history.games?.games||[]).filter(g=>g.queueId===2400&&g.gameMode==='KIWI'&&g.gameCreation>=MAYHEM_START);const full=[];for(const item of candidates)full.push(await lcu(`/lol-match-history/v1/games/${item.gameId}`));const payload=Buffer.from(JSON.stringify({matches:full.map(sanitize)})).toString('base64url');res.writeHead(302,{Location:`https://aram-arena-amigos.codingviegas.chatgpt.site/?view=Mayhem#mayhem-sync=${payload}`,'Cache-Control':'no-store'});return res.end();}catch{res.writeHead(302,{Location:'https://aram-arena-amigos.codingviegas.chatgpt.site/?view=Mayhem#mayhem-client-error'});return res.end();}
+ }
+ if(!ALLOWED.has(origin)){res.writeHead(403,{'Content-Type':'application/json'});return res.end(JSON.stringify({error:'Origem não autorizada.'}));}
  if(req.method==='OPTIONS'){res.writeHead(204,headers(origin));return res.end();}
  if(req.method!=='GET'||req.url!=='/matches'){res.writeHead(404,headers(origin));return res.end(JSON.stringify({error:'Rota não encontrada.'}));}
  try{
