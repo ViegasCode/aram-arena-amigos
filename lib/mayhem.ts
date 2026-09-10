@@ -1,11 +1,19 @@
 // Community points only; independent of the championship and official Riot ranks.
 export const MAYHEM_START = '2026-09-10T00:30:00.000Z';
+export function mayhemDelta(points: number, win: boolean | number) {
+  if (win) return 3;
+  if (points < 15) return 0;
+  if (points < 60) return -1;
+  if (points < 160) return -2;
+  return -3;
+}
 export function standings(players: any[], results: any[]) {
   return players.map(p => {
-    const entries = results.filter(r => r.player_id === p.id);
+    const entries = results.filter(r => r.player_id === p.id).sort((a,b) => String(a.played_at||'').localeCompare(String(b.played_at||'')) || String(a.match_id||'').localeCompare(String(b.match_id||'')));
     const wins = entries.reduce((n, r) => n + r.win, 0);
+    const points = entries.reduce((score, r) => Math.max(0, score + mayhemDelta(score, r.win)), 0);
     return { ...p, games: entries.length, wins, losses: entries.length - wins,
-      points: wins * 3, rate: entries.length ? wins / entries.length : 0 };
+      points, rate: entries.length ? wins / entries.length : 0 };
   }).sort((a, b) => b.points - a.points || b.rate - a.rate || b.wins - a.wins || Number(b.games > 0) - Number(a.games > 0) || a.name.localeCompare(b.name, 'pt-BR') || a.id.localeCompare(b.id));
 }
 export function validateEntries(entries: unknown) {

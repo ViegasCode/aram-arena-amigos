@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import {standings,validateEntries,riotMayhem} from '../lib/mayhem.ts';
+import {standings,validateEntries,riotMayhem,mayhemDelta} from '../lib/mayhem.ts';
+assert.equal(mayhemDelta(0,0),0);assert.equal(mayhemDelta(15,0),-1);assert.equal(mayhemDelta(60,0),-2);assert.equal(mayhemDelta(160,0),-3);assert.equal(mayhemDelta(250,1),3);
 const players=[{id:'a',name:'A',riot_id:'A',tagline:'BR1'},{id:'b',name:'B',riot_id:'B',tagline:'BR1'},{id:'c',name:'C'}];
 const ranked=standings(players,[{player_id:'b',win:0}]);assert.equal(ranked[0].id,'b');assert.equal(ranked[0].points,0);assert.equal(ranked[1].games,0);
 assert.throws(()=>validateEntries([{playerId:'a',win:1},{playerId:'a',win:0}]));assert.throws(()=>validateEntries([{playerId:'a',win:2}]));
