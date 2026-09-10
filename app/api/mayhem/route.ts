@@ -17,13 +17,14 @@ export async function GET() {
 export async function POST(request:Request) {
  try {
   const who=await identity();
-  if (!who.admin) return json({error:'Somente o administrador pode registrar resultados.'},403);
+  if (!who.user) return json({error:'Entre na sua conta para atualizar os resultados.'},401);
   if(request.headers.get('origin')!==new URL(request.url).origin) return json({error:'Origem inválida.'},403);
   if(!request.headers.get('content-type')?.includes('application/json'))return json({error:'Formato inválido.'},415);
   const raw=await request.text();if(raw.length>16000)return json({error:'Envio muito grande.'},413);
   const b=JSON.parse(raw),db=database(),now=new Date().toISOString();
   if(typeof b.matchId!=='string'||!/^BR1_[0-9]{5,20}$/.test(b.matchId))throw new Error('Informe o Match ID completo: BR1_ seguido dos números da partida.');
   if(b.action==='void') {
+   if(!who.admin)return json({error:'Somente o administrador pode anular resultados.'},403);
    if(typeof b.reason!=='string'||b.reason.trim().length<5||b.reason.length>500)throw new Error('Explique o motivo da anulação (5 a 500 caracteres).');
    const changed=await db.batch([
     db.prepare('UPDATE mayhem_matches SET void_reason=? WHERE id=? AND void_reason IS NULL').bind(b.reason.trim(),b.matchId),
@@ -32,7 +33,8 @@ export async function POST(request:Request) {
    if(!changed[0].meta.changes)throw new Error('Partida não encontrada ou já anulada.');
    return json({ok:true});
   }
-  if(!['manual','riot'].includes(b.action))throw new Error('Ação inválida.');
+  if(!['manual','riot','client'].includes(b.action))throw new Error('Ação inválida.');
+  if(b.action!=='client'&&!who.admin)return json({error:'Somente o administrador pode registrar resultados manualmente.'},403);
   if(await db.prepare('SELECT id FROM mayhem_matches WHERE id=?').bind(b.matchId).first())return json({error:'Esta partida já foi registrada no Mayhem.'},409);
   const players=(await db.prepare('SELECT id,riot_id,tagline,puuid,created_at FROM players').all()).results as any[];
   let entries:{playerId:string;win:number}[],playedAt:string;
@@ -47,6 +49,16 @@ export async function POST(request:Request) {
    const body=await response.json() as any;
    if(body.metadata?.matchId!==b.matchId)throw new Error('A resposta da Riot não corresponde à partida solicitada.');
    ({entries,playedAt}=riotMayhem(body,players.filter(p=>Date.parse(p.created_at)<=body.info?.gameStartTimestamp)));
+  } else if(b.action==='client') {
+   if(b.queueId!==2400||b.gameMode!=='KIWI'||b.gameType!=='MATCHED_GAME'||b.complete!==true||b.remake===true||!Number.isFinite(b.duration)||b.duration<300)
+    throw new Error('Esta partida não é um ARAM Mayhem PvP normal concluído.');
+   const time=Date.parse(b.playedAt);if(!Number.isFinite(time))throw new Error('Data da partida inválida.');
+   playedAt=new Date(time).toISOString();
+   if(!Array.isArray(b.participants)||b.participants.length!==10)throw new Error('A partida precisa ter 10 participantes.');
+   const normalized=b.participants.map((p:any)=>({gameName:typeof p.gameName==='string'?p.gameName.trim():'',tagLine:typeof p.tagLine==='string'?p.tagLine.trim():'',win:p.win}));
+   if(normalized.some((p:any)=>!p.gameName||!p.tagLine||typeof p.win!=='boolean')||new Set(normalized.map((p:any)=>`${p.gameName.toLowerCase()}#${p.tagLine.toLowerCase()}`)).size!==10)
+    throw new Error('Participantes inválidos no resultado do cliente.');
+   entries=validateEntries(players.flatMap(p=>{const hit=normalized.find((r:any)=>r.gameName.toLowerCase()===p.riot_id.toLowerCase()&&r.tagLine.toLowerCase()===p.tagline.toLowerCase());return hit?[{playerId:p.id,win:hit.win?1:0}]:[];}));
   } else {
    if(b.confirmed!==true)throw new Error('Confirme que conferiu o resultado de ARAM Mayhem.');
    entries=validateEntries(b.entries);
