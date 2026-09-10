@@ -734,7 +734,7 @@ export default function Arena() {
                   </div>
                 </>
               )}
-              {view === 'Mayhem' && <Mayhem admin={admin} />}
+              {view === 'Mayhem' && <Mayhem admin={admin} signedIn={!!data?.signedIn} />}
               {view === 'Ranking' && (
                 <>
                   {ranked.length > 0 && (
