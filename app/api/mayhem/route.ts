@@ -39,7 +39,7 @@ export async function POST(request:Request) {
   if(b.action==='riot') {
    const key=(env as unknown as {RIOT_API_KEY?:string}).RIOT_API_KEY;
    if(!key)return json({error:'Importação Riot não configurada. O administrador pode registrar o resultado conferido.'},503);
-   const response=await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/${b.matchId}`,{headers:{'X-Riot-Token':key},redirect:'error',signal:AbortSignal.timeout(20000)});
+   const response=await fetch(`https://americas.api.riotgames.com/lol/match/v5/matches/${b.matchId}`,{headers:{'X-Riot-Token':key},redirect:'manual',signal:AbortSignal.timeout(20000)});
    if(!response.ok) {
     const error=response.status===404?'A Riot não disponibilizou esta partida. Aguarde o término ou registre o resultado conferido.':response.status===429?'Limite da Riot atingido. Aguarde antes de tentar novamente.':[401,403].includes(response.status)?'A chave Riot precisa ser revisada pelo administrador.':'A Riot está indisponível. Tente novamente.';
     return json({error},response.status===429?429:502);

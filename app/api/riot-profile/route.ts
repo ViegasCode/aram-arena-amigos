@@ -18,7 +18,7 @@ export async function POST(request:Request) {
   const key=(env as unknown as {RIOT_API_KEY?:string}).RIOT_API_KEY;
   if(!key)return json({error:'A chave Riot precisa ser configurada pelo administrador.'},503);
   async function get(host:string,path:string){
-   const r=await fetch(`https://${host}.api.riotgames.com${path}`,{headers:{'X-Riot-Token':key!},redirect:'error',signal:AbortSignal.timeout(15000)});
+   const r=await fetch(`https://${host}.api.riotgames.com${path}`,{headers:{'X-Riot-Token':key!},redirect:'manual',signal:AbortSignal.timeout(15000)});
    if(!r.ok)throw new Error(r.status===404?'Conta não encontrada na Riot/servidor BR. Confira o Riot ID.':r.status===429?'Limite da Riot atingido. Aguarde alguns minutos.':[401,403].includes(r.status)?'A chave Riot precisa ser revisada.':'A Riot está indisponível. Tente novamente.');
    return r.json() as Promise<any>;
   }
@@ -39,6 +39,7 @@ export async function POST(request:Request) {
   return json({ok:true,profile:{...profile,fetchedAt:now}});
  } catch(e) {
   const message=e instanceof Error?e.message:'';
+  console.error('riot.profile_sync.failed', message.replace(/RGAPI-[\w-]+/g, '[secret]').replace(/https?:\/\/[^\s]+/g, '[url]'));
   return json({error:message.startsWith('A Riot')||message.startsWith('Conta ')||message.startsWith('Limite ')||message.startsWith('A chave ')?message:'Não foi possível atualizar este perfil. Os dados anteriores foram preservados.'},502);
  }
 }
