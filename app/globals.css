@@ -748,6 +748,7 @@ legend {
 .mayhem-hero:after { content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 45%,#ffffff08 46%,transparent 47%);pointer-events:none; }
 .mayhem-hero h2 { font-size: clamp(25px,3vw,38px); margin: 12px 0; }
 .mayhem-hero h2 em { color:#d6a8ff;font-style:normal;text-shadow:0 0 26px #9c4dff66; }
+.mayhem-hero-copy { min-width:0; }
 .mayhem-hero p { max-width: 560px; color: #a2b3cc; line-height: 1.7; }
 .mayhem-hero .badge { display: inline-flex; gap: 8px; align-items: center; margin-top: 16px; }
 .mayhem-season {display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid #a66cff66;border-radius:999px;background:#6d28d922;color:#d8b4fe;font-size:11px;font-weight:800;letter-spacing:.12em;}
