@@ -915,3 +915,28 @@ footer{border-top-color:#1f6548!important;color:#759789!important}
 /* Fundo principal mais nitido */
 .arena{background:linear-gradient(90deg,rgba(2,7,6,.24),rgba(2,8,7,.52) 48%,rgba(2,7,6,.76)),url("/images/login-arena-bg.png") center/cover fixed no-repeat}
 .arena:after{background:radial-gradient(circle at 85% 20%,#18ff9216,transparent 25%),radial-gradient(circle at 30% 85%,#0a8a5514,transparent 30%);opacity:.7}
+
+/* Progressao animada dos elos Mayhem */
+.tier-icon{transform-origin:50% 55%;will-change:transform,filter;transition:filter .3s,transform .3s}
+.tier-icon-1{animation:tier-awaken-1 5.8s ease-in-out infinite}
+.tier-icon-2{animation:tier-awaken-2 5.2s ease-in-out infinite}
+.tier-icon-3{animation:tier-awaken-3 4.6s ease-in-out infinite}
+.tier-icon-4{animation:tier-awaken-4 4s ease-in-out infinite}
+.tier-icon-5{animation:tier-awaken-5 3.4s ease-in-out infinite}
+.tier-icon-6{animation:tier-awaken-6 2.8s ease-in-out infinite}
+.tier-icon-7{animation:tier-awaken-7 2.2s ease-in-out infinite}
+.tier-label:hover .tier-icon,.tier-card:hover .tier-icon,.mayhem-leader:hover .tier-icon{animation-duration:1.5s;transform:scale(1.08)}
+.tier-road{position:relative;isolation:isolate;padding-top:6px}.tier-road:before{content:"";position:absolute;z-index:-1;top:50%;left:15px;width:calc(100% - 30px);height:2px;background:linear-gradient(90deg,transparent,#29a975,#75ffd0,#29a975,transparent);background-size:32% 100%;background-repeat:no-repeat;filter:drop-shadow(0 0 6px #38ffad);animation:tier-energy-flow 4.8s linear infinite}
+.tier-card{position:relative;overflow:visible}.tier-card:after{content:"";position:absolute;z-index:-1;inset:18% 12%;border-radius:50%;background:radial-gradient(circle,#41ffb126,transparent 68%);opacity:0;transform:scale(.65);animation:tier-card-aura 3.8s ease-out infinite;animation-delay:calc(var(--tier-order,1)*.22s)}
+.tier-card:nth-child(1){--tier-order:1}.tier-card:nth-child(2){--tier-order:2}.tier-card:nth-child(3){--tier-order:3}.tier-card:nth-child(4){--tier-order:4}.tier-card:nth-child(5){--tier-order:5}.tier-card:nth-child(6){--tier-order:6}.tier-card:nth-child(7){--tier-order:7}
+.tier-card:nth-child(5):after,.tier-card:nth-child(6):after,.tier-card:nth-child(7):after{inset:5%;background:radial-gradient(circle,#6affc044,transparent 68%)}
+@keyframes tier-awaken-1{50%{transform:translateY(-1px);filter:drop-shadow(0 5px 7px #000) drop-shadow(0 0 3px #37ff9f55)}}
+@keyframes tier-awaken-2{50%{transform:translateY(-2px) scale(1.01);filter:drop-shadow(0 6px 8px #000) drop-shadow(0 0 5px #37ff9f77)}}
+@keyframes tier-awaken-3{50%{transform:translateY(-3px) scale(1.015);filter:drop-shadow(0 7px 9px #000) drop-shadow(0 0 7px #41ffaaa0)}}
+@keyframes tier-awaken-4{0%,100%{filter:drop-shadow(0 7px 9px #000) drop-shadow(0 0 4px #35ff9d66)}50%{transform:translateY(-4px) scale(1.025);filter:drop-shadow(0 8px 10px #000) drop-shadow(0 0 10px #50ffb6bb)}}
+@keyframes tier-awaken-5{0%,100%{filter:drop-shadow(0 7px 10px #000) drop-shadow(0 0 5px #3bffa580)}50%{transform:translateY(-5px) scale(1.035) rotate(-.7deg);filter:drop-shadow(0 9px 11px #000) drop-shadow(0 0 14px #66ffc5dd)}}
+@keyframes tier-awaken-6{0%,100%{filter:drop-shadow(0 8px 11px #000) drop-shadow(0 0 7px #42ffaa99)}50%{transform:translateY(-6px) scale(1.045) rotate(.8deg);filter:brightness(1.12) drop-shadow(0 10px 12px #000) drop-shadow(0 0 18px #70ffcb)}}
+@keyframes tier-awaken-7{0%,100%{filter:brightness(1.02) drop-shadow(0 9px 12px #000) drop-shadow(0 0 9px #4cffb2bb)}50%{transform:translateY(-7px) scale(1.06);filter:brightness(1.2) drop-shadow(0 11px 13px #000) drop-shadow(0 0 24px #8dffd6) drop-shadow(0 0 7px #fff)}}
+@keyframes tier-energy-flow{from{background-position:-35% 0}to{background-position:140% 0}}
+@keyframes tier-card-aura{0%{opacity:0;transform:scale(.62)}35%{opacity:calc(.2 + var(--tier-order)*.08);transform:scale(.9)}75%,100%{opacity:0;transform:scale(1.22)}}
+@media(prefers-reduced-motion:reduce){.tier-icon,.tier-road:before,.tier-card:after{animation:none!important}}
