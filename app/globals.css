@@ -911,3 +911,7 @@ input[type="checkbox"],button[role="radio"]{accent-color:#35f5a7}
 table,.mayhem-champion-table{border-color:#1d6246!important;background:#040b08!important}th{background:#06120d!important;color:#7fa090!important}td{color:#def8ec}
 [role="dialog"]{border-color:#38e9a1!important;background:#030a07!important;color:#f3fff9!important}.arena-dialog{background:linear-gradient(145deg,#06140e,#020604)!important;box-shadow:0 30px 90px #000,0 0 32px #22ff951f!important}
 footer{border-top-color:#1f6548!important;color:#759789!important}
+
+/* Fundo principal mais nitido */
+.arena{background:linear-gradient(90deg,rgba(2,7,6,.24),rgba(2,8,7,.52) 48%,rgba(2,7,6,.76)),url("/images/login-arena-bg.png") center/cover fixed no-repeat}
+.arena:after{background:radial-gradient(circle at 85% 20%,#18ff9216,transparent 25%),radial-gradient(circle at 30% 85%,#0a8a5514,transparent 30%);opacity:.7}
