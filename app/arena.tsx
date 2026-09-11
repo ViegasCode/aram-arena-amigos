@@ -543,7 +543,7 @@ export default function Arena() {
                             <div
                               style={{
                                 width: 100,
-                                background: '#24374b',
+                                background: '#0b2a1d',
                                 height: 5,
                                 marginTop: 10,
                               }}
@@ -552,7 +552,7 @@ export default function Arena() {
                                 style={{
                                   width: r.grade * 10 + '%',
                                   height: 5,
-                                  background: '#cdb47e',
+                                  background: '#3cffad',
                                 }}
                               />
                             </div>
@@ -1262,7 +1262,7 @@ export default function Arena() {
             className="muted"
             style={{
               marginTop: 45,
-              borderTop: '1px solid #213045',
+              borderTop: '1px solid #1f6548',
               paddingTop: 20,
               fontSize: 12,
             }}

@@ -888,3 +888,26 @@ table thead{background:#06110d!important}th{color:#6f9788!important}td{border-co
 .mayhem-chart{filter:drop-shadow(0 0 7px #26ff9740)}
 [data-radix-dialog-content], [role="dialog"]{--ring:#3cffad}
 input[type="checkbox"],button[role="radio"]{accent-color:#35f5a7}
+
+/* Sistema visual monocromatico: preto, verde e branco */
+:root,.dark{--background:#020403;--foreground:#f3fff9;--primary:#39ffac;--border:#1e6b4b;--muted:#07140e;--color-primary:#39ffac;--color-primary-foreground:#010604;--color-border:#1e6b4b;--color-muted:#07140e;--color-muted-foreground:#91ad9f;--color-popover:#030a07;--color-popover-foreground:#f3fff9;--color-card:#050d09;--color-card-foreground:#f3fff9;--color-accent:#0b2a1d;--color-accent-foreground:#effff7;--color-input:#174c36;--color-ring:#39ffac}
+.arena,.mayhem,.enrollment,[role="dialog"]{font-family:var(--font-geist-sans),Arial,Helvetica,sans-serif;color:#f3fff9}
+.arena h1,.arena h2,.arena h3,.mayhem h1,.mayhem h2,.mayhem h3,.enrollment h1,.enrollment h2,.enrollment h3{color:#f4fff9}
+.arena p,.arena small,.arena label,.mayhem p,.mayhem small,.mayhem label{color:#8fa99d}
+.score,.good,.mayhem-win,.win,.eyebrow,.mayhem-kicker,.mayhem-live,.registered-tag,.mvp-tag,.tier-label strong,.champion-best strong{color:#45ffb3!important}
+.loss,.error,.mayhem-error{color:#fff!important}.error,.mayhem-error,.notice.error{border:1px solid #34df98!important;background:#071b13!important;box-shadow:inset 3px 0 #3cffad}.notice{border-color:#247653!important;background:#092118!important;color:#eafff6!important}.sync-summary{border-color:#277a57;background:#09251a;color:#60ffc0}
+.season-mark,.versus,.versus span,.mayhem-leader,.mayhem-leader span,.mayhem-leader:before,.mayhem-leader>svg,.tier-card strong,.mayhem-ranking .score,.champion-top>b,.champion-top-1>span,.champion-player-top>span,.champion-profile-highlights .is-first>span{color:#4dffb8!important}
+.mayhem-top-1 .mayhem-position,.mayhem-top-2 .mayhem-position,.mayhem-top-3 .mayhem-position{color:#4dffb8;background:#0b2b1e;box-shadow:inset 0 0 0 1px #39e9a071,0 0 12px #20ff9327}
+.mayhem-ranking .mayhem-top-1,.mayhem-ranking .mayhem-top-2,.mayhem-ranking .mayhem-top-3{background:linear-gradient(90deg,#0d382626,transparent 58%)}
+.team,.team:last-child{border-top-color:#3cffad}.team .person,.record,.mayhem-match{border-color:#19523a}
+.badge,.check,.mayhem-choice{border-color:#27815b!important;background:#09251a!important;color:#baffdf!important}
+.riot-details,.riot-rank,.riot-summary{border-color:#277653!important;background:#071710!important}.riot-rank{border-left-color:#3cffad!important}.riot-rank strong,.riot-rank span,.riot-rank p,.riot-rank small{color:#b6d6c8!important}
+.mayhem-highlights>div:first-child,.champion-top-1,.champion-player-top,.champion-profile-highlights .is-first{border-color:#37e89f!important;background:linear-gradient(120deg,#0b3021,#07150f)!important}
+.champion-top>img,.champion-top-1>img{border-color:#39e9a2!important;box-shadow:0 0 17px #2cff9844}.champion-player-list article>span,.champion-profile-highlights>div>span{background:#0a291c;color:#adffda}
+.mayhem-teams .enemies,.mayhem-teams .allies{border-color:#236e4f!important;background:#06130e!important}.mayhem-participant.is-mvp{border-color:#3cffad!important;box-shadow:inset 3px 0 #3cffad,0 0 18px #23ff9520}.mayhem-participant.is-registered{background:#092219!important}
+.mayhem-asset,.mayhem-asset.augment{border-color:#277353;background:#071811}.mayhem-asset strong,.mayhem-asset.augment strong{color:#6dffc7}
+.mayhem-auth-note{border-color:#277653;background:#092119;color:#d7ffed}
+.mayhem-chart-labels,.mayhem-player em,.mayhem-riot,.tier-card span,.champion-top>div small,.champion-top>div em,.champion-top>em{color:#88aa9b!important}
+table,.mayhem-champion-table{border-color:#1d6246!important;background:#040b08!important}th{background:#06120d!important;color:#7fa090!important}td{color:#def8ec}
+[role="dialog"]{border-color:#38e9a1!important;background:#030a07!important;color:#f3fff9!important}.arena-dialog{background:linear-gradient(145deg,#06140e,#020604)!important;box-shadow:0 30px 90px #000,0 0 32px #22ff951f!important}
+footer{border-top-color:#1f6548!important;color:#759789!important}
