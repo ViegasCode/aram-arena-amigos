@@ -837,3 +837,9 @@ legend {
 .enrollment:after{opacity:.72;animation:login-grid-drift 9s linear infinite,login-grid-pulse 3.2s ease-in-out infinite}
 @keyframes login-grid-pulse{0%,100%{opacity:.45;filter:drop-shadow(0 0 1px #26f6a055)}50%{opacity:.9;filter:drop-shadow(0 0 5px #32ffad99)}}
 @media(prefers-reduced-motion:reduce){.enrollment:after{animation:none!important;opacity:.55}}
+
+/* Grade do fundo sem faixas horizontais */
+.enrollment:after{background-image:linear-gradient(rgba(43,255,176,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(43,255,176,.055) 1px,transparent 1px);animation:login-grid-drift-fast 5.5s linear infinite,login-grid-opacity 3.2s ease-in-out infinite;filter:none}
+@keyframes login-grid-drift-fast{from{background-position:0 0}to{background-position:84px 84px}}
+@keyframes login-grid-opacity{0%,100%{opacity:.48}50%{opacity:.84}}
+@media(prefers-reduced-motion:reduce){.enrollment:after{animation:none!important;opacity:.55;filter:none}}
