@@ -940,3 +940,31 @@ footer{border-top-color:#1f6548!important;color:#759789!important}
 @keyframes tier-energy-flow{from{background-position:-35% 0}to{background-position:140% 0}}
 @keyframes tier-card-aura{0%{opacity:0;transform:scale(.62)}35%{opacity:calc(.2 + var(--tier-order)*.08);transform:scale(.9)}75%,100%{opacity:0;transform:scale(1.22)}}
 @media(prefers-reduced-motion:reduce){.tier-icon,.tier-road:before,.tier-card:after{animation:none!important}}
+
+/* Energia elemental e raios por elo */
+.tier-icon-1{--tier-energy:#4b2c20;animation:tier-elemental-1 5.8s ease-in-out infinite}
+.tier-icon-2{--tier-energy:#c36b2d;animation:tier-elemental-2 5.1s ease-in-out infinite}
+.tier-icon-3{--tier-energy:#d9e1e6;animation:tier-elemental-3 4.5s ease-in-out infinite}
+.tier-icon-4{--tier-energy:#ffd34f;animation:tier-elemental-4 3.9s ease-in-out infinite}
+.tier-icon-5{--tier-energy:#2cff9c;animation:tier-elemental-5 3.3s ease-in-out infinite}
+.tier-icon-6{--tier-energy:#35a8ff;animation:tier-elemental-6 2.7s ease-in-out infinite}
+.tier-icon-7{--tier-energy:#ef55ff;animation:tier-elemental-7 2.15s ease-in-out infinite}
+.tier-card:nth-child(1){--tier-color:#4b2c20;--bolt-opacity:.2;--bolt-scale:.88}
+.tier-card:nth-child(2){--tier-color:#c36b2d;--bolt-opacity:.28;--bolt-scale:.94}
+.tier-card:nth-child(3){--tier-color:#d9e1e6;--bolt-opacity:.36;--bolt-scale:1}
+.tier-card:nth-child(4){--tier-color:#ffd34f;--bolt-opacity:.46;--bolt-scale:1.05}
+.tier-card:nth-child(5){--tier-color:#2cff9c;--bolt-opacity:.58;--bolt-scale:1.1}
+.tier-card:nth-child(6){--tier-color:#35a8ff;--bolt-opacity:.72;--bolt-scale:1.16}
+.tier-card:nth-child(7){--tier-color:#ef55ff;--bolt-opacity:.9;--bolt-scale:1.24}
+.tier-card:before{content:"";position:absolute;z-index:0;inset:-25%;pointer-events:none;background:repeating-conic-gradient(from var(--bolt-angle),transparent 0deg 13deg,var(--tier-color) 14deg 15deg,transparent 16deg 37deg);mask:radial-gradient(circle,transparent 0 42%,#000 47% 50%,transparent 67%);opacity:var(--bolt-opacity);transform:scale(var(--bolt-scale));filter:drop-shadow(0 0 3px var(--tier-color));animation:tier-bolts 3.8s steps(8,end) infinite,tier-bolt-flicker 1.1s steps(2,end) infinite}
+.tier-card:nth-child(2):before{animation-duration:3.4s,.95s}.tier-card:nth-child(3):before{animation-duration:3s,.82s}.tier-card:nth-child(4):before{animation-duration:2.6s,.7s}.tier-card:nth-child(5):before{animation-duration:2.2s,.58s}.tier-card:nth-child(6):before{animation-duration:1.8s,.46s}.tier-card:nth-child(7):before{animation-duration:1.35s,.34s;filter:drop-shadow(0 0 6px var(--tier-color)) drop-shadow(0 0 12px var(--tier-color))}
+.tier-card>*{position:relative;z-index:1}.tier-card:hover:before{opacity:1;filter:drop-shadow(0 0 7px var(--tier-color)) drop-shadow(0 0 15px var(--tier-color))}
+@keyframes tier-elemental-1{50%{transform:translateY(-1px);filter:drop-shadow(0 6px 8px #000) drop-shadow(0 0 4px var(--tier-energy))}}
+@keyframes tier-elemental-2{50%{transform:translateY(-2px) scale(1.01);filter:drop-shadow(0 7px 9px #000) drop-shadow(0 0 7px var(--tier-energy))}}
+@keyframes tier-elemental-3{50%{transform:translateY(-3px) scale(1.02);filter:brightness(1.05) drop-shadow(0 8px 10px #000) drop-shadow(0 0 9px var(--tier-energy))}}
+@keyframes tier-elemental-4{50%{transform:translateY(-4px) scale(1.03);filter:brightness(1.1) drop-shadow(0 9px 11px #000) drop-shadow(0 0 13px var(--tier-energy))}}
+@keyframes tier-elemental-5{50%{transform:translateY(-5px) scale(1.04) rotate(-.7deg);filter:brightness(1.12) drop-shadow(0 10px 12px #000) drop-shadow(0 0 16px var(--tier-energy))}}
+@keyframes tier-elemental-6{0%,100%{filter:drop-shadow(0 8px 11px #000) drop-shadow(0 0 8px var(--tier-energy))}50%{transform:translateY(-6px) scale(1.055) rotate(.8deg);filter:brightness(1.16) drop-shadow(0 11px 13px #000) drop-shadow(0 0 21px var(--tier-energy))}}
+@keyframes tier-elemental-7{0%,100%{filter:brightness(1.04) drop-shadow(0 9px 12px #000) drop-shadow(0 0 11px var(--tier-energy))}50%{transform:translateY(-8px) scale(1.075);filter:brightness(1.22) drop-shadow(0 12px 14px #000) drop-shadow(0 0 27px var(--tier-energy)) drop-shadow(0 0 8px #fff)}}
+@property --bolt-angle{syntax:"<angle>";initial-value:0deg;inherits:false}@keyframes tier-bolts{to{--bolt-angle:360deg}}@keyframes tier-bolt-flicker{0%,45%,100%{opacity:calc(var(--bolt-opacity)*.55)}50%,70%{opacity:var(--bolt-opacity)}}
+@media(prefers-reduced-motion:reduce){.tier-card:before{animation:none!important;opacity:calc(var(--bolt-opacity)*.5)}}
