@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 const json = (data: unknown, status = 200) =>
   Response.json(data, { status, headers: { 'Cache-Control': 'no-store' } });
 const publicFields = 'id,name,riot_id,tagline,icon,active';
+const cleanRiot = (value: string) => value.normalize('NFKC').replace(/[\u200B-\u200F\u202A-\u202E\u2060-\u206F\uFEFF]/g, '').trim();
 export async function GET() {
   const { user } = await identity();
   if (!user) return json({ error: 'Entre para acessar seu cadastro.' }, 401);
@@ -36,8 +37,10 @@ export async function POST(request: Request) {
         ? value.trim()
         : null;
     const name = field(b.name, 40),
-      riotId = field(b.riotId, 50),
-      tagline = field(b.tagline, 10),
+      riotIdRaw = field(b.riotId, 50),
+      taglineRaw = field(b.tagline, 10),
+      riotId = riotIdRaw ? cleanRiot(riotIdRaw) : null,
+      tagline = taglineRaw ? cleanRiot(taglineRaw) : null,
       icon = typeof b.icon === 'string' ? b.icon.trim().slice(0, 4) : '';
     if (
       !name ||

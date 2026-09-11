@@ -10,6 +10,7 @@ const str = (v: unknown, max = 100) =>
   typeof v === 'string' && v.trim().length > 0 && v.trim().length <= max
     ? v.trim()
     : fail('Preencha os campos obrigatórios corretamente.');
+const cleanRiot = (v: unknown, max: number) => str(v, max).normalize('NFKC').replace(/[\u200B-\u200F\u202A-\u202E\u2060-\u206F\uFEFF]/g, '').trim();
 const number = (v: unknown, min = 0, max = 10000000) =>
   typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max
     ? v
@@ -122,8 +123,8 @@ export async function POST(request: Request) {
     if (b.action === 'player') {
       const id = b.id ? str(b.id) : crypto.randomUUID(),
         name = str(b.name, 40),
-        riot = str(b.riotId, 50),
-        tag = str(b.tagline, 10),
+        riot = cleanRiot(b.riotId, 50),
+        tag = cleanRiot(b.tagline, 10),
         icon = typeof b.icon === 'string' ? b.icon.slice(0, 4) : '';
       if (b.id) {
         if (
