@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Swords, ArrowUpRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Swords, ArrowUpRight, CheckCircle2, ShieldCheck, Zap, Trophy, Users, MessageCircle, Mail } from 'lucide-react';
 type Player = {
   id: string;
   name: string;
@@ -82,20 +82,20 @@ export default function Enrollment({ signedIn }: { signedIn: boolean }) {
       </header>
       <div className="enrollment-layout">
         <section>
-          <p className="eyebrow">A ARENA É MELHOR COM VOCÊ</p>
+          <p className="eyebrow"><Zap size={14}/> ENTRE NO SISTEMA</p>
           <h1>
-            Seu próximo time
+            Sua lenda começa
             <br />
-            começa aqui<span>.</span>
+            na ponte<span>.</span>
           </h1>
           <p className="muted">
-            Faça seu cadastro e entre na lista de jogadores do campeonato.
+            Conecte sua conta, vincule seu Riot ID e dispute o topo da arena com seus amigos.
           </p>
           <div className="enrollment-step">
             <span>01</span>
             <div>
-              <h3>Entre na sua conta</h3>
-              <p>Use sua conta do ChatGPT para se identificar.</p>
+              <h3>Acesse a Arena</h3>
+              <p>Escolha uma conta segura para identificar seu jogador.</p>
             </div>
           </div>
           <div className="enrollment-step">
@@ -115,25 +115,21 @@ export default function Enrollment({ signedIn }: { signedIn: boolean }) {
         </section>
         <section className="panel enrollment-card">
           {!signedIn ? (
-            <>
-              <ShieldCheck size={34} className="score" />
-              <h2>Entrar ou cadastrar-se</h2>
-              <p className="muted">
-                O acesso é feito com ChatGPT. Se ainda não tiver uma conta, crie
-                uma na tela de acesso e retorne para concluir seu cadastro na
-                arena.
-              </p>
-              <a
-                className="button gold"
-                href="/signin-with-chatgpt?return_to=%2Fcadastro"
-                target="_top"
-              >
-                Continuar com ChatGPT <ArrowUpRight size={18} />
-              </a>
-              <p className="muted">
-                Você também pode acompanhar o ranking sem se cadastrar.
-              </p>
-            </>
+            <div className="login-gateway">
+              <div className="login-status"><i/><span>SERVIDOR ONLINE</span><small>ACESSO SEGURO</small></div>
+              <div className="login-emblem"><ShieldCheck/><span><Zap size={15}/></span></div>
+              <span className="login-kicker">ARAM ARENA NETWORK</span>
+              <h2>Entre na competição</h2>
+              <p className="muted">Acesse seu jogador e mantenha seu progresso, histórico e conquistas.</p>
+              <div className="login-providers">
+                <a className="login-provider google" href="/signin-with-chatgpt?return_to=%2Fcadastro" target="_top"><Mail size={20}/><span><strong>Continuar com Google</strong><small>pela conta vinculada ao ChatGPT</small></span><ArrowUpRight size={17}/></a>
+                <button className="login-provider discord" type="button" disabled title="Integração com Discord em preparação"><MessageCircle size={21}/><span><strong>Continuar com Discord</strong><small>Em breve</small></span><i>EM BREVE</i></button>
+              </div>
+              <div className="login-divider"><span/>OU<span/></div>
+              <a className="login-chatgpt" href="/signin-with-chatgpt?return_to=%2Fcadastro" target="_top">Entrar com minha conta atual <ArrowUpRight size={16}/></a>
+              <div className="login-trust"><span><ShieldCheck size={14}/> Cadastro protegido</span><span><Users size={14}/> Apenas seu grupo</span><span><Trophy size={14}/> Progresso preservado</span></div>
+              <p className="login-footnote">Você também pode acompanhar o ranking sem se cadastrar.</p>
+            </div>
           ) : loading ? (
             <p role="status">Carregando seu cadastro…</p>
           ) : saved ? (
