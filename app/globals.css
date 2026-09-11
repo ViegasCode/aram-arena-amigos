@@ -968,3 +968,5 @@ footer{border-top-color:#1f6548!important;color:#759789!important}
 @keyframes tier-elemental-7{0%,100%{filter:brightness(1.04) drop-shadow(0 9px 12px #000) drop-shadow(0 0 11px var(--tier-energy))}50%{transform:translateY(-8px) scale(1.075);filter:brightness(1.22) drop-shadow(0 12px 14px #000) drop-shadow(0 0 27px var(--tier-energy)) drop-shadow(0 0 8px #fff)}}
 @property --bolt-angle{syntax:"<angle>";initial-value:0deg;inherits:false}@keyframes tier-bolts{to{--bolt-angle:360deg}}@keyframes tier-bolt-flicker{0%,45%,100%{opacity:calc(var(--bolt-opacity)*.55)}50%,70%{opacity:var(--bolt-opacity)}}
 @media(prefers-reduced-motion:reduce){.tier-card:before{animation:none!important;opacity:calc(var(--bolt-opacity)*.5)}}
+/* Elos sem raios externos; mantem apenas o pulso elemental */
+.tier-card:before{display:none!important}
