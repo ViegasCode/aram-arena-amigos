@@ -871,3 +871,20 @@ table thead{background:#06110d!important}th{color:#6f9788!important}td{border-co
 .mayhem-hero,.mayhem-ranking,.mayhem-champion-ranking{background:radial-gradient(circle at 90% 0,#1cff9417,transparent 35%),linear-gradient(150deg,#091813,#050c09)!important}.mayhem-kicker,.mayhem-live,.mayhem-win,.score{color:#48f5ad!important}.mayhem-live{border-color:#29ca895e;background:#0a2d1f}.mayhem-ranking-tabs{border-color:#22543e;background:#04100c}.mayhem-ranking-tabs button.active{border-color:#37efa3;background:linear-gradient(135deg,#0d3828,#092019);color:#52ffb8;box-shadow:0 5px 22px #1cff9423}.mayhem-position{background:#0e291e;color:#96b8aa}.tier-card,.champion-top,.mayhem-participant,.mayhem-profile-stats>div,.mayhem-profile-block{border-color:#24513e!important;background:linear-gradient(145deg,#0a1a14,#06100c)!important;transition:transform .22s,border-color .22s,box-shadow .22s}.tier-card:hover,.champion-top:hover,.mayhem-participant:hover,.mayhem-profile-stats>div:hover{transform:translateY(-2px);border-color:#3ceba4!important;box-shadow:0 8px 24px #0007,0 0 16px #23ff9616}
 @property --panel-angle{syntax:"<angle>";initial-value:0deg;inherits:false}@keyframes panel-led{to{--panel-angle:360deg}}@keyframes arena-grid{to{background-position:48px 48px}}@keyframes arena-ambient{50%{opacity:.62}}@keyframes rail-scan{0%,100%{top:-15%}50%{top:85%}}
 @media(prefers-reduced-motion:reduce){.arena:before,.arena:after,.rail:after,.panel:before{animation:none!important}.panel,.stat,.button,button{transition:none!important}}
+
+/* Paleta neon verde e fundo ilustrado da arena */
+.arena{background:linear-gradient(90deg,rgba(2,6,5,.9),rgba(2,8,6,.82) 48%,rgba(2,6,5,.95)),url("/images/login-arena-bg.png") center/cover fixed no-repeat}
+.arena:after{background:linear-gradient(90deg,#02060575,#020605c9 55%,#020605e8),radial-gradient(circle at 85% 20%,#18ff9228,transparent 25%),radial-gradient(circle at 30% 85%,#0a8a5529,transparent 30%)}
+.mayhem{--mh-purple:#3cffad;--mh-cyan:#62ffd0;--mh-gold:#7dffc9;--mh-line:#24533f}
+.mayhem-sync-card{border-color:#267a57!important;background:linear-gradient(120deg,#081712,#0a2118)}.mayhem-sync-card a{color:#50ffb8}.mayhem-sync-card:before{background:linear-gradient(#3cffad,#63ffd0)}
+.mayhem-avatar{border-color:#37e69f;background:linear-gradient(145deg,#0f3a29,#071710);color:#baffdf;box-shadow:0 0 16px #2cff9827}.mayhem-avatar small{border-color:#36e9a1;background:#06130e;color:#a8ffda;box-shadow:0 3px 12px #0009,0 0 10px #27ff972d}
+.mayhem-asset.augment{border-color:#2b7957;background:#0b2118}.mayhem-asset.augment strong{color:#6dffc7}
+.mayhem-ranking-tabs button.active{border-color:#3cffad;background:linear-gradient(135deg,#0d3b29,#071b13);color:#bfffe4;box-shadow:0 5px 20px #1cff942b}
+.champion-ranking-row:focus-visible{outline-color:#3cffad}.champion-modal-content>header>img{border-color:#3cffad;box-shadow:0 0 18px #28ff9942}
+.mayhem-profile-tier,.mayhem-profile-block,.mayhem-match-detail,.mayhem-match-meta>span,.mayhem-highlights>div,.mayhem-teams>section,.mayhem-loadout>section{border-color:#235c43!important}
+.mayhem-profile-modal,.champion-ranking-modal,.mayhem-dialog{border-color:#36e89f!important;background:linear-gradient(145deg,#07130f,#030907)!important;box-shadow:0 28px 90px #000d,0 0 40px #1cff9424!important}
+.mayhem-profile-hero,.mayhem-match-page-header,.champion-modal-content>header{background:linear-gradient(135deg,#0a281c,#06120e)!important}
+.mayhem-progress{background:#10281e!important}.mayhem-progress i{background:linear-gradient(90deg,#19b979,#54ffc0)!important;box-shadow:0 0 14px #36ffa8}
+.mayhem-chart{filter:drop-shadow(0 0 7px #26ff9740)}
+[data-radix-dialog-content], [role="dialog"]{--ring:#3cffad}
+input[type="checkbox"],button[role="radio"]{accent-color:#35f5a7}
