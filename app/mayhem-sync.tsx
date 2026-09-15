@@ -20,16 +20,17 @@ export default function MayhemSync({players,knownIds,onUpdated,signedIn,admin}:{
   finally{setIssues(errors);setProgress('');setBusy(false);}
  }
  async function syncRemote(){
-  setBusy(true);setSummary('');setIssues([]);const found=new Set<string>(),errors:string[]=[];
+  setBusy(true);setSummary('');setIssues([]);const found=new Set<string>(),known=new Set(knownIds),errors:string[]=[];let consulted=0,imported=0,duplicates=0,unavailable=0,stop=false;
+  async function post(path:string,body:any){const r=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}),b:any=await r.json();return {status:r.status,ok:r.ok,...b};}
   try{
    for(let i=0;i<players.length;i++){
     const player=players[i];setProgress(`Consultando histórico de ${player.name} (${i+1}/${players.length})…`);
-    try{const r=await fetch('/api/mayhem-history',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({playerId:player.id})}),b:any=await r.json();if(!r.ok)throw new Error(b.error);for(const id of b.matchIds||[])if(!knownIds.includes(id))found.add(id)}
-    catch(e){errors.push(`${player.name}: ${e instanceof Error?e.message:'falha na consulta'}`)}
-    if(i<players.length-1)await new Promise(r=>setTimeout(r,1250));
+      try{const b=await post('/api/mayhem-history',{playerId:player.id});if(!b.ok){errors.push(`${player.name}: ${b.error}`);if(b.status===429||/chave/i.test(b.error||'')){stop=true;break}}else{consulted++;for(const id of b.matchIds||[])found.add(id);if(b.possiblyMore)errors.push(`${player.name}: consultadas as 100 partidas Mayhem mais recentes do período.`)}}
+      catch{errors.push(`${player.name}: falha de conexão. Tente novamente.`)}
+      if(i<players.length-1)await new Promise(r=>setTimeout(r,1250));
    }
-   let imported=0,failed=0,index=0;for(const id of found){index++;setProgress(`Importando ${id} (${index}/${found.size})…`);const r=await fetch('/api/mayhem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'riot',matchId:id})}),b:any=await r.json();if(r.ok)imported++;else{failed++;errors.push(`${id}: ${b.error}`)};await new Promise(r=>setTimeout(r,1250))}
-   await onUpdated();setSummary(`${players.length} jogadores consultados · ${found.size} partidas novas encontradas · ${imported} importadas · ${failed} não importadas.`);
+    if(!stop){let index=0;for(const id of found){index++;if(known.has(id)){duplicates++;continue}setProgress(`Importando ${id} (${index}/${found.size})…`);try{const b=await post('/api/mayhem',{action:'riot',matchId:id});if(b.ok)imported++;else if(b.status===409||/já foi registrada|duplicada/i.test(b.error||''))duplicates++;else{unavailable++;errors.push(`${id}: ${b.error}`);if(b.status===429||/chave/i.test(b.error||''))break}}catch{unavailable++;errors.push(`${id}: falha de conexão.`)}await new Promise(r=>setTimeout(r,1250))}}
+    await onUpdated();setSummary(`${consulted}/${players.length} jogadores consultados · ${found.size} partidas encontradas · ${imported} importadas · ${duplicates} já registradas · ${unavailable} não importadas.${found.size===0?' A Riot não retornou partidas Mayhem elegíveis.':''}`);
   }catch{errors.push('Não foi possível concluir a busca de todos os jogadores.')}finally{setIssues(errors);setProgress('');setBusy(false)}
  }
  function sync(){if(admin){void syncRemote();return}location.href=`http://127.0.0.1:47831/sync`;}
